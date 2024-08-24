@@ -1,0 +1,23 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: apigateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: studentservice
+          uri: http://localhost:8090
+          predicates:
+            - Path=/api/v1/students/**
+        - id: schoolservice
+          uri: http://localhost:8070
+          predicates:
+            - Path=/api/v1/schools/**
+eureka:
+  client:
+    register-with-eureka: false
